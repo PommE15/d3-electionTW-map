@@ -1,0 +1,73 @@
+/* page: font (f) */ 
+.font {
+  font-family: Georgia, "Times New Roman", "FangSong", "仿宋", STFangSong, "華文仿宋", serif;
+}
+
+/* page: layout (l) */
+.layout {
+  width: 1200px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.l-left {
+  width: 600px;
+  height: 650px;
+  float: left;
+}
+.l-right {
+  width: calc(100% - 600px);
+  float: right;
+}
+
+/* svg: map */
+path {
+  fill: #ddd;  
+}
+path[class*="county"]:hover {
+  stroke: dimgrey;
+  cursor: pointer;
+}
+#map {
+  position: fixed;
+}
+.town,
+.village {
+  fill: none;
+  stroke: #fff;
+}
+
+/* list */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  background-color: lightgrey;
+  padding: 0.1em 0.6em;
+  border-radius: 2px;
+  line-height: 1.5em;
+  margin-left: 1em;
+  color: white;
+  text-decoration: none;
+}
+a:hover { background-color: dimgrey; }
+.bg-c-blue  { background-color: rgb(120, 150, 250); }
+.bg-c-green { background-color: darkseagreen; }
+.bg-c-blue:hover  { background-color: blue; }
+.bg-c-green:hover { background-color: green; }
+
+.desc {
+  line-height: 1.5em;
+  margin-bottom: 2em;
+}
+
+.number {
+  text-align: right;
+  width: 2.5em;
+  display: inline-block;
+  border-bottom: 1px solid black;
+  margin: 0 0.25em;
+  padding-right: .5em;
+}
