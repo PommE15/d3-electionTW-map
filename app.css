@@ -16,8 +16,11 @@
   float: left;
 }
 .l-right {
-  width: calc(100% - 600px);
+  width: calc(100% - 601px);
   float: right;
+  border-left: 1px dotted#eee;
+  padding-left: 50px;
+  margin-left: -50px;
 }
 
 /* svg: map */
@@ -30,6 +33,11 @@ path[class*="county"]:hover {
 #map {
   position: fixed;
 }
+#pie {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
 .town,
 .village {
   fill: none;
@@ -59,21 +67,16 @@ a.bg-c-blue:hover { background-color: blue; }
 .bg-c-gray { background-color: lightgray; }
 .bg-c-y { background-color: rgb(250,250,50); }
 
-.desc {
-  line-height: 1.5em;
-  margin-bottom: 2em;
-}
-
 .number {
   text-align: right;
   width: 2.5em;
   display: inline-block;
   border-bottom: 1px solid black;
-  margin: 0 0.25em;
+  margin: 0.2em;
   padding-right: .5em;
 }
 .n-bg {
   border-bottom: 0;
   border-radius: 3px;
-  line-height: 1.2em;
+  line-height: 1.2m;
 }
