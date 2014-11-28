@@ -33,7 +33,10 @@ counties.forEach(function(c) {
     g: Math.round(pCount.DPP * constant) + ratioNAP,
     b: Math.round(pCount.KMT * constant) + ratioNAP
   }
-  colorMap[c] = rgbColor;
+  colorMap[c] = {
+    "count": pCount, 
+    "color": rgbColor
+  };
 });
 
 
@@ -47,6 +50,10 @@ function setCandidateList(county) {
   document.getElementById("villageNumber").textContent = vn; 
   document.getElementById("candidateNumber").textContent = cn;
   document.getElementById("ratioNumber").textContent = Math.round((cn/vn) * 10000) / 100; 
+  document.getElementById("totalNumber").textContent = vn - cn;
+  document.getElementById("NAP").textContent = colorMap[county].count.NAP;
+  document.getElementById("DPP").textContent = colorMap[county].count.DPP;
+  document.getElementById("KMT").textContent = colorMap[county].count.KMT;
   
   vc[county].qmCandidateList.forEach(function(candi) {
     li = document.createElement("li");
@@ -65,15 +72,17 @@ function setCandidateList(county) {
   });
 }
 function onCountyClicked(county) {
+  console.log(arcs);
+  arcs.remove();
   // remove all child nodes if any exists
   if (ul.hasChildNodes()) { 
     while (ul.firstChild) {
       ul.removeChild(ul.firstChild);
   }}
-  drawPieChart(county);
   setCandidateList(county);
+  drawPieChart(county);
 }
-setCandidateList("臺北市");
+setCandidateList(counties[0]);
 
 
 
@@ -105,7 +114,7 @@ d3.json(json.county, function(err, map) {
     .attr("class", "county-v") //debug
     .attr("d", path)
     .style("fill", function() {
-      var color = colorMap[c];
+      var color = colorMap[c].color;
       this.addEventListener("click", function(){onCountyClicked(c);}, false);
       return "rgb(" + color.r + "," + color.g + "," + color.b + ")";
     })
@@ -156,6 +165,48 @@ d3.json(json.county, function(err, map) {
 // end of d3.json
 
 // pie chart
+var arcs//svgPie;
 function drawPieChart(county){
-  //svg
+  var wPie = 160,
+      hPie = 160,
+      outerR = wPie / 2, //radius
+      innerR = wPie / 6,
+      color = ["rgb(120, 150, 250)", "rgb(130, 240, 40)", "#EEE", "rgb(250, 250, 50)"],
+      pie = d3.layout.pie(),
+      d = colorMap[county].count,
+      total = vc[county].villageNumber - vc[county].qmCandidateList.length,
+      dataset = [d.KMT, d.DPP, d.NAP, total],
+      arc,
+      //arcs,
+      svgPie;
+  // draw arc paths
+  svgPie = d3.select("svg#pie")
+        .attr("width", wPie)
+        .attr("height", hPie);
+  arc = d3.svg.arc()
+        .innerRadius(innerR)
+        .outerRadius(outerR);
+  arcs = svgPie.selectAll("g.arc")
+        .data(pie(dataset))
+        .enter()
+        .append("g")
+        .attr("class", "arc")
+        .attr("transform", "translate(" + outerR + "," + outerR + ")");
+      
+  arcs.append("path")
+    .attr("d", arc)
+    .attr("fill", function(d,i) {
+      return color[i];
+    });
+  // draw texts
+  arcs.append("text")
+    .attr("transform", function(d) {
+      return "translate(" + arc.centroid(d) + ")"; 
+    })
+    .attr("text-anchor", "middle")
+    .text(function(d) {
+      return d.value;
+    });
+    //.style("fill", "white");
 }
+drawPieChart(counties[0]);

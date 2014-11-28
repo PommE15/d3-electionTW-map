@@ -22,7 +22,6 @@
 
 /* svg: map */
 path {
-  fill: #ddd;  
 }
 path[class*="county"]:hover {
   stroke: dimgrey;
@@ -53,10 +52,12 @@ a {
   text-decoration: none;
 }
 a:hover { background-color: dimgrey; }
-.bg-c-blue  { background-color: rgb(120, 150, 250); }
-.bg-c-green { background-color: darkseagreen; }
-.bg-c-blue:hover  { background-color: blue; }
-.bg-c-green:hover { background-color: green; }
+a.bg-c-green:hover { background-color: green; }
+a.bg-c-blue:hover { background-color: blue; }
+.bg-c-green { background-color: rgb(135, 240, 40); }
+.bg-c-blue { background-color: rgb(120, 150, 250); }
+.bg-c-gray { background-color: lightgray; }
+.bg-c-y { background-color: rgb(250,250,50); }
 
 .desc {
   line-height: 1.5em;
@@ -70,4 +71,9 @@ a:hover { background-color: dimgrey; }
   border-bottom: 1px solid black;
   margin: 0 0.25em;
   padding-right: .5em;
+}
+.n-bg {
+  border-bottom: 0;
+  border-radius: 3px;
+  line-height: 1.2em;
 }

@@ -15,9 +15,14 @@
       <h1 id="countyName">臺北市</h1>
       <h3 class="desc">
         共有<span class="number" id="villageNumber"></span>村里，<br>
-        其中<span class="number" id="candidateNumber"></span>為同額競選。<br>
-        比例<span class="number" id="ratioNumber"></span>％
+        已知<span class="number" id="candidateNumber"></span>人一票當選，
+        為縣市全候選比例<span class="number" id="ratioNumber"></span>％<br>
+        其中<span class="number n-bg bg-c-gray" id="NAP"></span>位無黨籍，
+            <span class="number n-bg bg-c-green" id="DPP"></span>位民進黨
+            <span class="number n-bg bg-c-blue" id="KMT"></span>位國民黨成員：<br>
+        其他<span class="number n-bg bg-c-y" id="totalNumber"></span>還是要投票喔！<br>
       </h3>
+      <svg id="pie"></svg>
       <h2>凍蒜拉！村里長列表：</h2>
       <ul id="candidateList">
       </ul>
