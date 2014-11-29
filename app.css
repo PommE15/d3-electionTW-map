@@ -65,7 +65,8 @@ a.bg-c-blue:hover { background-color: blue; }
 .bg-c-green { background-color: rgb(135, 240, 40); }
 .bg-c-blue { background-color: rgb(120, 150, 250); }
 .bg-c-gray { background-color: lightgray; }
-.bg-c-y { background-color: rgb(250,250,50); }
+.bg-c-y { background-color: rgb(250, 250, 50); }
+.bg-c-r { background-color: rgb(255, 75, 100); }
 
 .number {
   text-align: right;

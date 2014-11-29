@@ -11,7 +11,9 @@ function countParty(item) {
     case "NAP": pCount.NAP++; break;
     case "DPP": pCount.DPP++; break;
     case "KMT": pCount.KMT++; break;
-    default: console.log("party: ", item.party);
+    default:
+      pCount.others++; 
+      //console.log("party: ", item.party);
   }
 }
 
@@ -22,7 +24,7 @@ counties.forEach(function(c) {
       numCandi = vc[c].qmCandidateList.length;
   // calc candidates' parties on county 
   // refactory: vc.filter(isCountyCountParty(c)).length; 
-  pCount = {"NAP":0, "DPP":0, "KMT":0}; 
+  pCount = {"NAP":0, "DPP":0, "KMT":0, "others":0}; 
   vc[c].qmCandidateList.forEach(countParty);
   
   // recalc rgb numbers
@@ -30,7 +32,7 @@ counties.forEach(function(c) {
   ratioNAP = Math.round(pCount.NAP * constant);
   rgbColor = {
     r: ratioNAP,
-    g: Math.round(pCount.DPP * constant) + ratioNAP,
+    g: Math.round(pCount.DPP * constant * 1.25) + ratioNAP,
     b: Math.round(pCount.KMT * constant) + ratioNAP
   }
   colorMap[c] = {
@@ -54,6 +56,7 @@ function setCandidateList(county) {
   document.getElementById("NAP").textContent = colorMap[county].count.NAP;
   document.getElementById("DPP").textContent = colorMap[county].count.DPP;
   document.getElementById("KMT").textContent = colorMap[county].count.KMT;
+  document.getElementById("otherParty").textContent = colorMap[county].count.others;
   
   vc[county].qmCandidateList.forEach(function(candi) {
     li = document.createElement("li");
@@ -63,9 +66,10 @@ function setCandidateList(county) {
     a.target = "_blank";
     a.textContent = candi.name;
     switch (candi.party) {
-      case "KMT": a.classList.add("bg-c-blue");  break;
+      case "NAP": /* use default bg color */ break;
+      case "KMT": a.classList.add("bg-c-blue"); break;
       case "DPP": a.classList.add("bg-c-green"); break;
-      default: /* use default bg color */ ;
+      default: a.classList.add("bg-c-r"); 
     }
     li.appendChild(a);
     ul.appendChild(li);
@@ -171,11 +175,11 @@ function drawPieChart(county){
       hPie = 160,
       outerR = wPie / 2, //radius
       innerR = wPie / 6,
-      color = ["rgb(120, 150, 250)", "rgb(130, 240, 40)", "#EEE", "rgb(250, 250, 50)"],
+      color = ["rgb(120, 150, 250)", "rgb(130, 240, 40)", "red", "#EEE", "rgb(250, 250, 50)"],
       pie = d3.layout.pie(),
       d = colorMap[county].count,
       total = vc[county].villageNumber - vc[county].qmCandidateList.length,
-      dataset = [d.KMT, d.DPP, d.NAP, total],
+      dataset = [d.KMT, d.DPP, d.others, d.NAP, total],
       arc,
       //arcs,
       svgPie;
